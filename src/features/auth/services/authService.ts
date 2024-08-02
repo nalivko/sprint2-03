@@ -16,8 +16,8 @@ export const authService = {
             return {
                 status: 400,
                 exttensions: [{
-                    field: "login or email",
-                    message: "User allready exist"
+                    message: "User allready exist",
+                    field: "login or email"
                 }],
                 data: null
             }
@@ -58,8 +58,8 @@ export const authService = {
             return {
                 status: 400,
                 exttensions: [{
-                    field: "confirmationCode",
-                    message: 'User with this code not found'
+                    message: 'User with this code not found',
+                    field: "confirmationCode"
                 }],
                 data: null
             }
@@ -68,8 +68,8 @@ export const authService = {
             return {
                 status: 400,
                 exttensions: [{
-                    field: "isConfirmed",
-                    message: 'This code allready applied'
+                    message: 'This code allready applied',
+                    field: "isConfirmed"
                 }],
                 data: null
             }
@@ -78,8 +78,8 @@ export const authService = {
             return {
                 status: 400,
                 exttensions: [{
-                    field: "confirmationCodeExpirationDate",
-                    message: 'the confirmation code has expired'
+                    message: 'the confirmation code has expired',
+                    field: "confirmationCodeExpirationDate"
                 }],
                 data: null
             }
@@ -96,8 +96,8 @@ export const authService = {
         return {
             status: 400,
             exttensions: [{
-                field: "field",
-                message: 'error'
+                message: 'error',
+                field: "field"
             }],
             data: null
         }
@@ -129,8 +129,8 @@ export const authService = {
             return {
                 status: 400,
                 exttensions: [{
-                    field: "email",
-                    message: 'User with this email not found'
+                    message: 'User with this email not found',
+                    field: "email"
                 }],
                 data: null
             }
@@ -139,8 +139,8 @@ export const authService = {
             return {
                 status: 400,
                 exttensions: [{
-                    field: "isConfirmed",
-                    message: 'User with this email allready confirmed'
+                    message: 'User with this email allready confirmed',
+                    field: "isConfirmed"
                 }],
                 data: null
             }
