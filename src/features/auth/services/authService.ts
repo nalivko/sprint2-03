@@ -15,7 +15,10 @@ export const authService = {
         if (user) {
             return {
                 status: 400,
-                errorMessage: "User allready exist",
+                exttensions: [{
+                    field: "login or email",
+                    message: "User allready exist"
+                }],
                 data: null
             }
         }
@@ -54,21 +57,30 @@ export const authService = {
         if (!user) {
             return {
                 status: 400,
-                errorMessage: 'User with this code not found',
+                exttensions: [{
+                    field: "confirmationCode",
+                    message: 'User with this code not found'
+                }],
                 data: null
             }
         }
         if (user.emailConfirmation.isConfirmed) {
             return {
                 status: 400,
-                errorMessage: 'This code allready applied',
+                exttensions: [{
+                    field: "isConfirmed",
+                    message: 'This code allready applied'
+                }],
                 data: null
             }
         }
-        if(user.emailConfirmation.confirmationCodeExpirationDate < new Date()) {
+        if (user.emailConfirmation.confirmationCodeExpirationDate < new Date()) {
             return {
                 status: 400,
-                errorMessage: 'the confirmation code has expired',
+                exttensions: [{
+                    field: "confirmationCodeExpirationDate",
+                    message: 'the confirmation code has expired'
+                }],
                 data: null
             }
         }
@@ -83,7 +95,10 @@ export const authService = {
         }
         return {
             status: 400,
-            errorMessage: 'error',
+            exttensions: [{
+                field: "field",
+                message: 'error'
+            }],
             data: null
         }
     },
@@ -113,14 +128,20 @@ export const authService = {
         if (!user) {
             return {
                 status: 400,
-                errorMessage: 'User with this email not found',
+                exttensions: [{
+                    field: "email",
+                    message: 'User with this email not found'
+                }],
                 data: null
             }
         }
         if (user.emailConfirmation.isConfirmed === true) {
             return {
                 status: 400,
-                errorMessage: 'User with this email allready confirmed',
+                exttensions: [{
+                    field: "isConfirmed",
+                    message: 'User with this email allready confirmed'
+                }],
                 data: null
             }
         }
