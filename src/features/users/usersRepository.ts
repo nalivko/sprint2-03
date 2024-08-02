@@ -54,19 +54,17 @@ export const usersRepository = {
             { _id: new ObjectId(userId) },
             { $set: { 'emailConfirmation.isConfirmed': true } }
         )
-
-        console.log('mc ' + result.matchedCount);
         
         return result.matchedCount === 1
     },
 
     async doesExistByLoginOrEmail(login: string, email: string) {
         if (await usersCollection.findOne({ login: login })) {
-            return true
+            return 'login'
         }
 
         if (await usersCollection.findOne({ email: email })) {
-            return true
+            return 'email'
         }
 
         return false
@@ -76,5 +74,14 @@ export const usersRepository = {
         return await usersCollection.findOne({
             "emailConfirmation.confirmationCode": code
         })
-    }
+    },
+
+    async updateConfirmationCode(userId: ObjectId, code: string) {
+        let result = await usersCollection.updateOne(
+            { _id: userId },
+            { $set: { 'emailConfirmation.confirmationCode': code } }
+        )
+        
+        return result.matchedCount === 1
+    },
 }

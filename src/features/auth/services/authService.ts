@@ -11,13 +11,13 @@ import { usersRepository } from "../../users/usersRepository"
 
 export const authService = {
     async registerUser(login: string, email: string, password: string): Promise<Result<UserDbType | null>> {
-        const user = await usersRepository.doesExistByLoginOrEmail(login, email)
-        if (user) {
+        const existField = await usersRepository.doesExistByLoginOrEmail(login, email)
+        if (existField) {
             return {
                 status: 400,
                 exttensions: [{
                     message: "User allready exist",
-                    field: "email"
+                    field: existField
                 }],
                 data: null
             }
@@ -145,11 +145,15 @@ export const authService = {
                 data: null
             }
         }
+        const newCode = randomUUID()
+        const codeUpdated = await usersRepository.updateConfirmationCode(user._id, newCode)
 
-        try {
-            await emailManager.sendConfirmationCode(email, user.emailConfirmation.confirmationCode)
-        } catch (error) {
-            console.error(error)
+        if (codeUpdated) {
+            try {
+                await emailManager.sendConfirmationCode(email, user.emailConfirmation.confirmationCode)
+            } catch (error) {
+                console.error(error)
+            }
         }
 
         return {
