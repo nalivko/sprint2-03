@@ -10,7 +10,7 @@ export type OutputErrorsType = {
     errorsMessages: {message: string, field: FieldNamesType}[]
 }
 
-export const checkErrorsMiddleware = (req: Request, res: Response<ErrorsMessagesType>, next: NextFunction) => {
+export const checkErrorsMiddleware = (req: Request, res: Response<OutputErrorsType>, next: NextFunction) => {
     // const errors = validationResult(req).array({onlyFirstError: true})
     const errors = validationResult(req)
 
