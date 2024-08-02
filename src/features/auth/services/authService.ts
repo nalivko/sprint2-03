@@ -150,7 +150,7 @@ export const authService = {
 
         if (codeUpdated) {
             try {
-                await emailManager.sendConfirmationCode(email, user.emailConfirmation.confirmationCode)
+                await emailManager.sendConfirmationCode(email, newCode)
             } catch (error) {
                 console.error(error)
             }
