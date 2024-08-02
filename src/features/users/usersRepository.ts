@@ -47,5 +47,34 @@ export const usersRepository = {
 
     async getUserById(id: string) {
         return await usersCollection.findOne({ _id: new ObjectId(id) })
+    },
+
+    async updateConfirmation(userId: string) {
+        let result = await usersCollection.updateOne(
+            { _id: new ObjectId(userId) },
+            { $set: { 'emailConfirmation.isConfirmed': true } }
+        )
+
+        console.log('mc ' + result.matchedCount);
+        
+        return result.matchedCount === 1
+    },
+
+    async doesExistByLoginOrEmail(login: string, email: string) {
+        if (await usersCollection.findOne({ login: login })) {
+            return true
+        }
+
+        if (await usersCollection.findOne({ email: email })) {
+            return true
+        }
+
+        return false
+    },
+
+    async findUserByConfirmationCode(code: string) {
+        return await usersCollection.findOne({
+            "emailConfirmation.confirmationCode": code
+        })
     }
 }

@@ -1,3 +1,4 @@
+import { bcryptService } from "../../../application/bcryptService";
 import { UserDbType } from "../../../db/user-db-type";
 import { UserInputModel, UserViewModel } from "../types/users-type";
 import { userQueryRepository } from "../usersQueryRepository";
@@ -26,14 +27,19 @@ export const usersService = {
         }
 
 
-        const passwordSalt = await bcrypt.genSalt(10)
-        const passwordHash = await bcrypt.hash(user.password, passwordSalt)
+        // const passwordSalt = await bcrypt.genSalt(10)
+        // const passwordHash = await bcrypt.hash(user.password, passwordSalt)
+        const passwordHash = await bcryptService.generateHash(user.password)
 
         const newUser: UserDbType = {
             login: user.login,
-            password: user.password,
             email: user.email,
             passwordHash: passwordHash,
+            emailConfirmation: {
+                confirmationCode: "",
+                confirmationCodeExpirationDate: new Date(),
+                isConfirmed: false,
+            },
             createdAt: new Date().toISOString()
         }
 

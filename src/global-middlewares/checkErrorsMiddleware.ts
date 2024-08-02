@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import { validationResult } from "express-validator"
 import { BlogInputModel } from "../features/blogs/types/blogs-types"
 import { PostInputModel } from "../features/posts/types/posts-types"
+import { ErrorsMessagesType } from "../types/errorsMessagesType"
 
 export type FieldNamesType = keyof BlogInputModel | keyof PostInputModel
 // const f: FieldsType = 'some' // error
@@ -9,7 +10,7 @@ export type OutputErrorsType = {
     errorsMessages: {message: string, field: FieldNamesType}[]
 }
 
-export const checkErrorsMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const checkErrorsMiddleware = (req: Request, res: Response<ErrorsMessagesType>, next: NextFunction) => {
     // const errors = validationResult(req).array({onlyFirstError: true})
     const errors = validationResult(req)
 

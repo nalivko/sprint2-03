@@ -16,10 +16,10 @@ const passwordValidator =
 
 const emailValidator =
     body('email')
-        .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).withMessage("pattern")
+        .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).withMessage("pattern email")
         .isEmail()
 
-export const userValidators = [
+export const registrationValidators = [
     loginValidator,
     passwordValidator,
     emailValidator,

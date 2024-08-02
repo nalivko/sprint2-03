@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { authService } from "../services/authService"
-import { loginInputType, loginSuccessType } from "./types/loginTypes"
+import { loginInputType, loginSuccessType } from "../types/authTypes"
 
 export const loginController = async (req: Request<{}, {}, loginInputType>, res: Response<loginSuccessType>) => {
     const accessToken = await authService.login(req.body.loginOrEmail, req.body.password)
