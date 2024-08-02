@@ -146,6 +146,12 @@ export const authService = {
             }
         }
 
+        try {
+            await emailManager.sendConfirmationCode(email, user.emailConfirmation.confirmationCode)
+        } catch (error) {
+            console.error(error)
+        }
+
         return {
             status: 204,
             data: null
