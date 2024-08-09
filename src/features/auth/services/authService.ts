@@ -116,6 +116,8 @@ export const authService = {
 
         if (!user) return null
 
+        if(!user.emailConfirmation.isConfirmed) return null
+
         const isCorrect = await bcrypt.compare(password, user.passwordHash)
 
         if (!isCorrect) return null
